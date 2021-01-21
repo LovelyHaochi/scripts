@@ -5,15 +5,26 @@ import yaml
 import requests
 import socket
 
-clash_sub_link = ''
-proxies = {'http': 'http://localhost:7890', 'https': 'http://localhost:7890'}
+clash_sub_link = input("Clash Sub Link >> ")
+proxies = {
+    'http': 'http://localhost:7890',
+    'https': 'http://localhost:7890',
+}
+headers = {
+    'User-Agent': 'ClashforWindows/Clash-sub-get-ip'
+}
 
 
 def get_ip(domain):
     addr = socket.getaddrinfo(domain, 'http')
-    print(addr[0][4][0])
+    return addr[0][4][0]
 
 
-y = yaml.load((requests.get(clash_sub_link, proxies=proxies)).text, Loader=yaml.FullLoader)
-for num in y['Proxy']:
-    get_ip(num['server'])
+y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
+print(y)
+if y['proxies']:
+    for num in y['proxies']:
+        print(get_ip(num['server']))
+else:
+    for num in y['Proxy']:
+        print(get_ip(num['server']))
