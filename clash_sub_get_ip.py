@@ -3,10 +3,17 @@
 
 import yaml
 import requests
+import socket
 
-sub_link = ''
+clash_sub_link = ''
 proxies = {'http': 'http://localhost:7890', 'https': 'http://localhost:7890'}
 
-y = yaml.load((requests.get(sub_link, proxies=proxies)).text, Loader=yaml.FullLoader)
+
+def get_ip(domain):
+    addr = socket.getaddrinfo(domain, 'http')
+    print(addr[0][4][0])
+
+
+y = yaml.load((requests.get(clash_sub_link, proxies=proxies)).text, Loader=yaml.FullLoader)
 for num in y['Proxy']:
-    print(num['server'])
+    get_ip(num['server'])
