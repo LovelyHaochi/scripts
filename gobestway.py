@@ -15,7 +15,7 @@ while True:
     print("Count: %s" % count)
 
     # register #
-    url = 'https://netyi.cloud/auth/register'
+    url = 'http://find.gobestway.org/auth/register'
     em = ''.join(random.sample(string.ascii_letters + string.digits, 16))
     email = em + '@gmail.com'
     print('Email: %s' % email)
@@ -32,7 +32,7 @@ while True:
     print(json.loads(res.text)['msg'])
 
     # login #
-    url = 'https://netyi.cloud/auth/login'
+    url = 'http://find.gobestway.org/auth/login'
     data = {
         'email': email,
         'passwd': 'sbsbsbsb123',
@@ -43,12 +43,12 @@ while True:
     cookies = res.cookies
 
     # check-in #
-    url = 'https://netyi.cloud/user/checkin'
-    res = requests.post(url, {}, proxies=proxies, cookies=cookies)
-    print(json.loads(res.text)['msg'])
+    # url = 'http://find.gobestway.org/user/checkin'
+    # res = requests.post(url, {}, proxies=proxies, cookies=cookies)
+    # print(json.loads(res.text)['msg'])
 
     # get links #
-    url = 'https://netyi.cloud/user'
+    url = 'http://find.gobestway.org/user'
     res = requests.get(url, proxies=proxies, cookies=cookies)
     html = etree.HTML(res.text)
     link = html.xpath('//button/@data-clipboard-text')
