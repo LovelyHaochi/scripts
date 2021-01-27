@@ -52,10 +52,10 @@ while True:
     res = requests.get(url, proxies=proxies, cookies=cookies)
     html = etree.HTML(res.text)
     link = html.xpath('//button/@data-clipboard-text')
-    # print(link[1])
+    print(link[1])
 
     # output #
-    with open('wangyiyun.txt', 'a+', encoding='utf-8')as f:
+    with open('gobestway.txt', 'a+', encoding='utf-8')as f:
         f.write(link[1])
 
     # 计数哒 #
