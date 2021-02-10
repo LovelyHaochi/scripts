@@ -16,12 +16,27 @@ headers = {
 
 
 def get_ip(domain):
-    addr = socket.getaddrinfo(domain, 'http')
-    return addr[0][4][0]
+    try:
+        return (socket.getaddrinfo(domain, 'http'))[0][4][0]
+    except Exception as error:
+        return '{} ({})'.format(error, domain)
 
 
 y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
 print(y)
+
+print('')
+
+print('--- Domain list ---')
+if y['proxies']:
+    for num in y['proxies']:
+        print(num['server'])
+else:
+    for num in y['Proxy']:
+        print(num['server'])
+print('')
+
+print('--- IP list ---')
 if y['proxies']:
     for num in y['proxies']:
         print(get_ip(num['server']))
