@@ -7,7 +7,7 @@ import socket
 import sys
 
 # clash_sub_link = input("Clash Sub Link >> ")
-clash_sub_link = sys.argv[1]
+clash_sub_link = sys.argv[1] if len(sys.argv) > 1 else input("Clash Sub Link >> ")
 proxies = {
     'http': 'http://localhost:7890',
     'https': 'http://localhost:7890',
