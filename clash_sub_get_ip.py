@@ -19,14 +19,14 @@ headers = {
 
 def get_ip(domain):
     try:
-        return '{} ({})'.format(socket.getaddrinfo(domain, 'http')[0][4][0], domain)
+        return '{:18} ({})'.format(socket.getaddrinfo(domain, 'http')[0][4][0], domain)
     except Exception as error:
         return '{} ({})'.format(error, domain)
 
 
 def main():
-    # y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
-    y = yaml.load((requests.get(clash_sub_link, headers=headers)).text, Loader=yaml.FullLoader)
+    y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
+    # y = yaml.load((requests.get(clash_sub_link, headers=headers)).text, Loader=yaml.FullLoader)
     # print(y)
 
     ip = []
@@ -49,7 +49,7 @@ def main():
     print('--- IP list ---')
     for num in ip:
         print(get_ip(num))
-        ip2.append(get_ip(num))
+        ip2.append(socket.getaddrinfo(num, 'http')[0][4][0])
     print('')
 
     repeat = {}
@@ -62,7 +62,7 @@ def main():
         count += list.count(item)
     repeat = sorted(repeat.items(), key=lambda item: item[1], reverse=True)
     for item in repeat:
-        print("{}: {}".format(item[0], str(item[1] / count * 100)[:4] + '%'))
+        print("{:18}: {}".format(item[0], str(item[1] / count * 100)[:4] + '%'))
 
 
 main()
