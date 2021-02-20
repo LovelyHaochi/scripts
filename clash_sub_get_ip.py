@@ -19,17 +19,18 @@ headers = {
 
 def get_ip(domain):
     try:
-        return (socket.getaddrinfo(domain, 'http'))[0][4][0]
+        return '{} ({})'.format(socket.getaddrinfo(domain, 'http')[0][4][0], domain)
     except Exception as error:
         return '{} ({})'.format(error, domain)
 
 
 def main():
-    y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
-    # y = yaml.load((requests.get(clash_sub_link, headers=headers)).text, Loader=yaml.FullLoader)
+    # y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
+    y = yaml.load((requests.get(clash_sub_link, headers=headers)).text, Loader=yaml.FullLoader)
     # print(y)
 
     ip = []
+    ip2 = []
 
     if y['proxies']:
         for num in y['proxies']:
@@ -48,11 +49,12 @@ def main():
     print('--- IP list ---')
     for num in ip:
         print(get_ip(num))
+        ip2.append(get_ip(num))
     print('')
 
     repeat = {}
     print('--- Repeat list ---')
-    list = ip
+    list = ip2
     lists = set(list)
     count = 0
     for item in lists:
