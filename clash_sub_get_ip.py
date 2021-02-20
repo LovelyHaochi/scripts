@@ -28,18 +28,15 @@ def main():
     y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
     # y = yaml.load((requests.get(clash_sub_link, headers=headers)).text, Loader=yaml.FullLoader)
     # print(y)
+    # print('')
 
     ip = []
     ip2 = []
 
-    if y['proxies']:
-        for num in y['proxies']:
-            ip.append(num['server'])
-    else:
-        for num in y['Proxy']:
-            ip.append(num['server'])
+    proxy_name = 'proxies' if hasattr(y, "proxies") else 'Proxy'
 
-    print('')
+    for num in y[proxy_name]:
+        ip.append(num['server'])
 
     print('--- Domain list ---')
     for num in ip:
