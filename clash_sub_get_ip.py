@@ -16,7 +16,6 @@ headers = {
     'User-Agent': 'ClashforWindows/Clash-sub-get-ip'
 }
 
-
 def get_ip(domain):
     try:
         return '{:18} ({})'.format(socket.getaddrinfo(domain, 'http')[0][4][0], domain)
@@ -25,15 +24,21 @@ def get_ip(domain):
 
 
 def main():
-    y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
-    # y = yaml.load((requests.get(clash_sub_link, headers=headers)).text, Loader=yaml.FullLoader)
-    # print(y)
-    # print('')
+    # y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
+    y = yaml.load((requests.get(clash_sub_link, headers=headers)).text, Loader=yaml.FullLoader)
+    print(y)
+    print('')
 
     ip = []
     ip2 = []
 
-    proxy_name = 'proxies' if hasattr(y, "proxies") else 'Proxy'
+    proxy_name = 'proxies'
+    try:
+        sb = y['proxies']
+    except AttributeError as e:
+        proxy_name = 'Proxy'
+
+    print(proxy_name)
 
     for num in y[proxy_name]:
         ip.append(num['server'])
