@@ -2,8 +2,6 @@
 # link: https://github.com/LovelyHaochi/
 
 from gmailnator import *
-import time
-import re
 import requests
 
 affcode = 'Bzl3'
@@ -49,22 +47,3 @@ if __name__ == '__main__':
     }
     res = requests.post(url, data, proxies=proxies)
     print(res.json())
-
-    url = 'https://freeperson.xyz/auth/login'
-    data = {
-        'email': gmail,
-        'passwd': '123456aa',
-        'code': '',
-    }
-    res = requests.post(url, data, proxies=proxies)
-    cookies = res.cookies
-    print(res.json())
-
-    url = 'https://freeperson.xyz/user/checkin'
-    res = requests.post(url, {}, proxies=proxies, cookies=cookies)
-    print(res.json())
-
-    url = 'https://freeperson.xyz/user'
-    res = requests.get(url, proxies=proxies, cookies=cookies)
-    link = re.search(r"oneclickImport\('clash','(.+)'\)", res.text).group(1)
-    print(link)
