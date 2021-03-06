@@ -26,8 +26,10 @@ def get_ip(domain):
 def main():
     # y = yaml.load((requests.get(clash_sub_link, proxies=proxies, headers=headers)).text, Loader=yaml.FullLoader)
     y = yaml.load((requests.get(clash_sub_link, headers=headers)).text, Loader=yaml.FullLoader)
+    """
     print(y)
     print('')
+    """
 
     ip = []
     ip2 = []
@@ -38,7 +40,7 @@ def main():
     except AttributeError as e:
         proxy_name = 'Proxy'
 
-    print(proxy_name)
+    # print(proxy_name)
 
     for num in y[proxy_name]:
         ip.append(num['server'])
